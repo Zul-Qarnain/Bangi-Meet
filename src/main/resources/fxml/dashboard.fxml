@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.text.Font?>
+
+<!-- Link to the controller -->
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      xmlns="http://javafx.com/javafx"
+      fx:controller="com.meetingapp.controllers.DashboardController"
+      spacing="20.0"
+      styleClass="dashboard-layout"> <!-- Add a style class for the root -->
+
+    <padding>
+        <Insets top="0" right="0" bottom="0" left="0"/> <!-- Padding will be added to content sections -->
+    </padding>
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="header-bar">
+        <padding>
+            <Insets top="15" right="25" bottom="15" left="25"/>
+        </padding>
+        <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
+            <image>
+                <!-- Replace with your actual logo path -->
+                <Image url="@../images/logo.png"/>
+            </image>
+        </ImageView>
+        <Label text="Connect" styleClass="app-title" HBox.hgrow="ALWAYS"/>
+
+        <!-- Right side of Header -->
+        <HBox alignment="CENTER_RIGHT" spacing="15.0">
+            <!-- Settings Button (use a Button with an icon graphic or FontAwesomeFX) -->
+            <Button text="Settings" styleClass="icon-button">
+                <!-- Graphic would go here -->
+            </Button>
+            <!-- User Avatar and Dropdown -->
+            <HBox alignment="CENTER" spacing="5.0" styleClass="user-menu">
+                <ImageView fx:id="userAvatar" fitHeight="40" fitWidth="40" preserveRatio="true" styleClass="avatar">
+                    <!-- Load default avatar or user's avatar -->
+                    <image>
+                        <Image url="@../images/default-avatar.png"/>
+                    </image>
+                </ImageView>
+                <!-- Dropdown indicator (can be a Label with text "▼" or an icon) -->
+                <Label text="▼" styleClass="dropdown-arrow"/>
+                <!-- ContextMenu for the dropdown -->
+                <contextmenu>
+                    <ContextMenu>
+                        <items>
+                            <MenuItem text="Profile" onAction="#handleProfile"/>
+                            <MenuItem text="Settings" onAction="#handleSettings"/>
+                            <SeparatorMenuItem/>
+                            <MenuItem text="Logout" onAction="#handleLogout"/>
+                        </items>
+                    </ContextMenu>
+                </contextmenu>
+            </HBox>
+        </HBox>
+    </HBox>
+
+    <!-- Main Content Area -->
+    <VBox alignment="TOP_CENTER" spacing="30.0" styleClass="main-content">
+        <padding>
+            <Insets top="30" right="25" bottom="30" left="25"/>
+        </padding>
+
+        <Label text="Welcome to Connect" styleClass="welcome-title"/>
+
+        <!-- Action Buttons: Create and Join -->
+        <HBox alignment="CENTER" spacing="20.0" styleClass="action-buttons">
+            <Button text="Create New Meeting" styleClass="create-meeting-button" onAction="#handleCreateNewMeeting">
+                <!-- Graphic icon here -->
+            </Button>
+            <Button text="Join a Meeting" styleClass="join-meeting-button" onAction="#handleJoinMeeting">
+                <!-- Graphic icon here -->
+            </Button>
+        </HBox>
+
+        <!-- Upcoming Meetings Section -->
+        <VBox spacing="15.0" styleClass="upcoming-meetings-section" VBox.vgrow="ALWAYS">
+            <Label text="Upcoming Meetings" styleClass="section-title"/>
+            <!-- Container for meeting items - will be populated dynamically -->
+            <VBox fx:id="upcomingMeetingsContainer" spacing="10.0" styleClass="meeting-list">
+                <!-- Meeting items will be added here by the controller -->
+                <!-- Example (this would typically be loaded from a separate FXML) -->
+                <!--
+                <HBox styleClass="meeting-item" alignment="CENTER_LEFT" spacing="15">
+                    <Label text="📅" styleClass="meeting-icon"/>
+                    <VBox HBox.hgrow="ALWAYS">
+                        <Label text="Team Sync" styleClass="meeting-title"/>
+                        <Label text="10:00 AM - 11:00 AM" styleClass="meeting-time"/>
+                    </VBox>
+                    <Button text="Join" styleClass="join-upcoming-button"/>
+                </HBox>
+                -->
+            </VBox>
+        </VBox>
+    </VBox>
+
+</VBox>

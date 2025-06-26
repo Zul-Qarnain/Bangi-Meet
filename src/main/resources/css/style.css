@@ -1,0 +1,200 @@
+/* Define colors using JavaFX properties or just use hex codes */
+/* You could try to map your --primary-color etc. here, but JavaFX CSS variables are less common */
+.root {
+    -fx-background-color: #f8f7fa; /* light-background */
+    -fx-font-family: "System"; /* Default system font, replace or load custom fonts */
+    -fx-text-fill: #111827; /* text-dark */
+}
+
+/* Dark theme - you'd need logic in MainApp to switch stylesheets or modify properties */
+.dark .root {
+    -fx-background-color: #171122; /* dark-background */
+    -fx-text-fill: #ffffff; /* text-light */
+}
+
+
+/* Header Styling */
+.header-bar {
+    -fx-background-color: #ffffff; /* Example background */
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 0 0 1px 0; /* Bottom border only */
+    -fx-fill-height: true; /* HBox should fill height if possible */
+}
+
+.dark .header-bar {
+    -fx-background-color: #2f2447; /* secondary-color */
+    -fx-border-color: #2f2447; /* border-color-dark */
+}
+
+.app-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    /* -fx-fill: var(--secondary-color); -- Does not work directly with JavaFX CSS */
+    -fx-text-fill: #2f2447; /* secondary-color (dark text in light mode) */
+}
+.dark .app-title {
+    -fx-text-fill: #ffffff; /* text-light (light text in dark mode) */
+}
+
+.icon-button {
+    -fx-background-color: transparent;
+    -fx-padding: 5px; /* Adjust padding */
+    -fx-border-radius: 50%; /* Make it round */
+    -fx-background-radius: 50%;
+}
+.icon-button:hover {
+    -fx-background-color: #e0e0e0; /* Light hover */
+}
+.dark .icon-button:hover {
+    -fx-background-color: #4a3c6b; /* Dark hover */
+}
+
+.user-menu .avatar {
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
+    /* Requires an ImageView with a loaded image */
+    -fx-border-color: transparent;
+    -fx-border-width: 2px;
+}
+.user-menu:hover .avatar {
+    -fx-border-color: #7b47ea; /* primary-color */
+}
+.user-menu .dropdown-arrow {
+    -fx-text-fill: #6b7280; /* gray-500 */
+}
+.dark .user-menu .dropdown-arrow {
+    -fx-text-fill: #9ca3af; /* gray-400 */
+}
+.user-menu:hover .dropdown-arrow {
+    -fx-text-fill: #7b47ea; /* primary-color */
+}
+
+
+/* Main Content Area */
+.main-content {
+    -fx-max-width: 800px; /* Simulate max-width */
+    -fx-pref-width: 100%; /* Allow VBox to take available width within parent */
+}
+
+.welcome-title {
+    -fx-font-size: 32px; /* Adjust based on mockup */
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+
+/* Action Buttons Container */
+.action-buttons {
+    -fx-alignment: center;
+    -fx-pref-width: 100%; /* HBox fills available width */
+}
+
+/* Individual Action Buttons */
+.create-meeting-button {
+    -fx-background-color: #7b47ea; /* primary-color */
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 15px 30px; /* Adjust padding */
+    -fx-background-radius: 10px; /* Rounded corners */
+    -fx-cursor: hand; /* Indicate clickable */
+}
+.create-meeting-button:hover {
+    -fx-background-color: #6a3ab7; /* Darker primary */
+}
+.create-meeting-button:pressed {
+    -fx-background-color: #5a2e9b; /* Even darker */
+}
+
+
+.join-meeting-button {
+    -fx-background-color: transparent;
+    -fx-border-color: #7b47ea; /* primary-color */
+    -fx-border-width: 2px;
+    -fx-text-fill: #7b47ea; /* primary-color */
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 15px 30px; /* Match create button padding */
+    -fx-background-radius: 10px; /* Rounded corners */
+    -fx-cursor: hand; /* Indicate clickable */
+}
+.join-meeting-button:hover {
+    -fx-background-color: rgba(123, 71, 234, 0.1); /* primary-color with opacity */
+}
+.dark .join-meeting-button:hover {
+    -fx-background-color: rgba(123, 71, 234, 0.2); /* primary-color with more opacity */
+}
+
+
+/* Upcoming Meetings Section */
+.upcoming-meetings-section {
+    -fx-pref-width: 100%;
+}
+.section-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    /* Padding added in FXML VBox padding */
+}
+
+.meeting-list {
+    /* Spacing between list items defined in FXML VBox */
+}
+
+/* Individual Meeting Item (if using separate FXML, apply these styles to its root) */
+.meeting-item {
+    -fx-background-color: #ffffff; /* White background */
+    -fx-padding: 15px;
+    -fx-background-radius: 8px; /* Rounded corners */
+    -fx-border-color: #e5e7eb; /* Border color */
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 0, 2); /* Subtle shadow */
+    -fx-cursor: pointer; /* Indicate clickable */
+}
+.dark .meeting-item {
+    -fx-background-color: rgba(47, 36, 71, 0.5); /* secondary-color/50 */
+    -fx-border-color: #2f2447; /* border-color-dark */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 0, 2); /* Subtle shadow */
+}
+.meeting-item:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 8, 0, 0, 3); /* Larger shadow on hover */
+}
+
+.meeting-icon {
+    /* Style for the calendar icon */
+    -fx-background-color: rgba(123, 71, 234, 0.1); /* primary-color/10 */
+    -fx-background-radius: 8px;
+    -fx-min-width: 50px; /* Fixed size */
+    -fx-min-height: 50px;
+    -fx-alignment: center; /* Center the icon/text */
+    -fx-text-fill: #7b47ea; /* primary-color */
+    -fx-font-size: 24px; /* Icon size */
+}
+.dark .meeting-icon {
+    -fx-background-color: rgba(123, 71, 234, 0.2); /* primary-color/20 */
+}
+
+.meeting-title {
+    -fx-font-size: 15px; /* Adjust */
+    -fx-font-weight: medium;
+}
+
+.meeting-time {
+    -fx-font-size: 13px; /* Adjust */
+    -fx-text-fill: #6b7280; /* text-muted-dark */
+}
+.dark .meeting-time {
+    -fx-text-fill: #a493c8; /* text-muted-light */
+}
+
+
+.join-upcoming-button {
+    -fx-background-color: #7b47ea; /* primary-color */
+    -fx-text-fill: white;
+    -fx-font-size: 13px; /* Smaller font */
+    -fx-font-weight: medium;
+    -fx-padding: 8px 15px; /* Adjust padding */
+    -fx-background-radius: 6px; /* Rounded corners */
+    -fx-cursor: hand;
+}
+.join-upcoming-button:hover {
+    -fx-background-color: #6a3ab7; /* Darker primary */
+}

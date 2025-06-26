@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<HBox xmlns:fx="http://javafx.com/fxml/1"
+      xmlns="http://javafx.com/javafx"
+      fx:controller="com.meetingapp.controllers.MeetingItemController"
+      styleClass="meeting-item"
+      alignment="CENTER_LEFT"
+      spacing="15.0">
+
+    <padding>
+        <Insets top="15" right="15" bottom="15" left="15"/>
+    </padding>
+
+    <!-- Calendar Icon -->
+    <VBox styleClass="meeting-icon" alignment="CENTER">
+        <!-- Using text here, ideally use an icon font or image -->
+        <Label text="📅"/>
+    </VBox>
+
+    <!-- Meeting Details (Title and Time) -->
+    <VBox HBox.hgrow="ALWAYS">
+        <Label fx:id="meetingTitleLabel" styleClass="meeting-title"/>
+        <Label fx:id="meetingTimeLabel" styleClass="meeting-time"/>
+    </VBox>
+
+    <!-- Join Button -->
+    <Button fx:id="joinButton" text="Join" styleClass="join-upcoming-button" onAction="#handleJoinMeeting"/>
+
+</HBox>

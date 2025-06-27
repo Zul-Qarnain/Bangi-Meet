@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<!-- Use a StackPane to center everything on the screen -->
+<StackPane xmlns:fx="http://javafx.com/fxml/1"
+           xmlns="http://javafx.com/javafx"
+           fx:controller="com.meetingapp.controllers.SplashController"
+           styleClass="splash-root"> <!-- Custom style class for splash background/root (gradient) -->
+
+    <!-- Main centered content -->
+    <VBox alignment="CENTER" spacing="20.0">
+        <padding>
+            <Insets top="30" right="30" bottom="30" left="30"/> <!-- Add some padding -->
+        </padding>
+
+        <!-- Icon -->
+        <!-- VBox styled in CSS for the circular background and border -->
+        <VBox alignment="CENTER" styleClass="splash-icon-container">
+            <ImageView fitHeight="60" fitWidth="60" preserveRatio="true">
+                <image>
+                    <!-- Path to your exclamation mark icon image (PNG with transparency) -->
+                    <Image url="@../images/info_icon.png"/>
+                </image>
+            </ImageView>
+        </VBox>
+
+        <!-- Title -->
+        <Label text="SyncSpace" styleClass="splash-title"/>
+
+        <!-- Loading Section (Progress Bar and Message) -->
+        <VBox alignment="CENTER" spacing="8.0" styleClass="splash-loading-container">
+            <!-- Progress Bar -->
+            <!-- Indeterminate mode shows animation. Styled in CSS for appearance. -->
+            <ProgressBar fx:id="loadingProgressBar" prefWidth="250.0" progress="-1.0" styleClass="splash-progress-bar"/> <!-- progress="-1" sets indeterminate mode -->
+            <!-- Loading Message -->
+            <Label fx:id="loadingMessageLabel" text="Connecting you..." styleClass="splash-message"/>
+        </VBox>
+    </VBox>
+
+</StackPane>

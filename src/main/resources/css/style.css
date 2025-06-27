@@ -1,42 +1,55 @@
-/* --- General Styles --- */
-/* Define colors using JavaFX properties or just use hex codes */
-/* You could try to map your --primary-color etc. here, but JavaFX CSS variables are less common */
-/* Assuming a default light theme */
+/*
+ * Master Stylesheet for the Meeting App (JavaFX + WebView)
+ * Contains styles for Splash, Login, and Dashboard screens.
+ * Designed primarily for a dark theme based on provided mockups.
+ * Add '.dark' style class to the root pane (e.g., Scene root) to enable dark theme.
+ */
+
+/* --- General & Root Styles --- */
+/* Base styles applied to the root of the scene or main layout panes. */
+/* Defaulting to dark theme colors as per mockups. */
 .root {
     -fx-background-color: #f8f7fa; /* light-background */
-    -fx-font-family: "System"; /* Use a system font, or load custom fonts */
+    -fx-font-family: "System"; /* Default system font, replace or load custom fonts */
     -fx-text-fill: #111827; /* text-dark */
 }
 
-/* Dark theme - applied by adding 'dark' style class to root */
+/* Dark theme - you'd need logic in MainApp to switch stylesheets or modify properties */
 .dark .root {
     -fx-background-color: #171122; /* dark-background */
     -fx-text-fill: #ffffff; /* text-light */
 }
 
 
-/* --- Header Styling --- */
+/* --- Header Styling (Common to Login/Dashboard) --- */
 .header-bar {
-    /* Use dark theme colors as default for this specific app header */
-    -fx-background-color: #171122; /* dark-background */
-    -fx-border-color: #2f2447; /* border-color-dark */
+    -fx-background-color: #ffffff; /* Example background */
+    -fx-border-color: #e5e7eb;
     -fx-border-width: 0 0 1px 0; /* Bottom border only */
     -fx-fill-height: true; /* HBox should fill height if possible */
 }
-/* If you implement light mode, you'd add a rule like: */
-/* .root:not(.dark) .header-bar { ... light theme styles ... } */
 
+.dark .header-bar {
+     -fx-background-color: #2f2447; /* secondary-color */
+     -fx-border-color: #2f2447; /* border-color-dark */
+}
+
+/* Title Label in Header */
 .app-title {
     -fx-font-size: 20px;
     -fx-font-weight: bold;
-    -fx-text-fill: #ffffff; /* text-light */
+    /* -fx-fill: var(--secondary-color); -- Does not work directly with JavaFX CSS */
+    -fx-text-fill: #2f2447; /* secondary-color (dark text in light mode) */
+}
+.dark .app-title {
+    -fx-text-fill: #ffffff; /* text-light (light text in dark mode) */
 }
 
-/* Styles for header navigation links */
+/* Header Navigation Links (used in Login header reference) */
 .header-nav .header-link { /* Target links specifically within header-nav */
     -fx-text-fill: #a493c8; /* muted-text-color */
     -fx-underline: false;
-    -fx-font-size: 13px; /* Adjusted size */
+    -fx-font-size: 13px;
     -fx-font-weight: 500; /* medium */
 }
 .header-nav .header-link:hover {
@@ -44,11 +57,11 @@
     -fx-underline: false;
 }
 
-/* Style for the 'Sign In' button in the header */
+/* Style for the 'Sign In' button in the header (from Login reference) */
 .header-sign-in-button {
-    -fx-background-color: #2f2447; /* input-background-color (secondary color from mockup) */
+    -fx-background-color: #2f2447; /* input-background-color */
     -fx-text-fill: white; /* text-light */
-    -fx-font-size: 13px; /* Adjusted size */
+    -fx-font-size: 13px;
     -fx-font-weight: 600; /* semi-bold */
     -fx-padding: 8px 15px; /* Adjust padding */
     -fx-background-radius: 8px; /* Rounded corners */
@@ -61,7 +74,8 @@
     -fx-background-color: #6a3ab7; /* Darker primary */
 }
 
-/* Header Icon Button (Dashboard/Settings example - included for completeness) */
+
+/* Header Icon Button (Dashboard Settings example) */
 .icon-button {
     -fx-background-color: transparent;
     -fx-padding: 5px; /* Adjust padding */
@@ -69,131 +83,146 @@
     -fx-background-radius: 50%;
 }
 .icon-button:hover {
-    -fx-background-color: #4a3c6b; /* Dark hover (from login styles) */
+    -fx-background-color: #e0e0e0; /* Light hover */
+}
+.dark .icon-button:hover {
+     -fx-background-color: #4a3c6b; /* Dark hover */
 }
 
-/* Header User Menu/Avatar (Dashboard example - included for completeness) */
+/* Header User Menu/Avatar (Dashboard example) */
 .user-menu .avatar {
-    -fx-border-radius: 50%;
-    -fx-background-radius: 50%;
-    /* Requires an ImageView with a loaded image */
-    -fx-border-color: transparent;
-    -fx-border-width: 2px;
+     -fx-border-radius: 50%;
+     -fx-background-radius: 50%;
+     /* Requires an ImageView with a loaded image */
+     -fx-border-color: transparent;
+     -fx-border-width: 2px;
 }
 .user-menu:hover .avatar {
-    -fx-border-color: #7b47ea; /* primary-color */
+     -fx-border-color: #7b47ea; /* primary-color */
 }
 .user-menu .dropdown-arrow {
-    -fx-text-fill: #9ca3af; /* gray-400 (muted-light from dashboard) */
+     -fx-text-fill: #6b7280; /* gray-500 */
+}
+.dark .user-menu .dropdown-arrow {
+     -fx-text-fill: #9ca3af; /* gray-400 */
 }
 .user-menu:hover .dropdown-arrow {
-    -fx-text-fill: #7b47ea; /* primary-color */
+     -fx-text-fill: #7b47ea; /* primary-color */
 }
 
 
-/* --- Main Content Area (Login Specific) --- */
+/* --- Login Screen Specific Styles --- */
+
+/* Login specific styles for dark theme */
+.login-layout {
+    /* This will be applied to login screen VBox */
+}
+
+/* Main content area for login (to ensure correct background in dark mode) */
 .main-content-login {
     /* StackPane for centering, padding set in FXML */
-    /* Ensure background color matches root in dark mode */
-    -fx-background-color: #171122; /* dark-background */
+    -fx-background-color: #171122; /* dark-background (matches root) */
 }
-/* Ensure the main content area respects light mode root background if needed */
-.root:not(.dark) .main-content-login {
-    -fx-background-color: #f8f7fa; /* light-background */
-}
+/* If you implement light mode, add light background here */
+/* .root:not(.dark) .main-content-login {
+     -fx-background-color: #f8f7fa; // light-background (matches root)
+} */
 
 
-/* --- Login Card --- */
+/* The Login Card Container */
 .login-card {
-    -fx-background-color: #1f1630; /* --card-background-color */
+    -fx-background-color: #1f1630; /* card-background-color */
     -fx-background-radius: 10px; /* Rounded corners */
-    -fx-effect: dropshadow(gaussian, rgba(123, 71, 234, 0.25), 15, 0, 0, 5); /* --shadow-color */
+    -fx-effect: dropshadow(gaussian, rgba(123, 71, 234, 0.25), 15, 0.2, 0, 5); /* shadow-color adjusted */
     -fx-max-width: 400px; /* Simulate max-width */
     -fx-pref-width: 100%; /* Take full width up to max */
+    -fx-padding: 30px; /* Padding inside the card */
 }
 
-/* --- Tabs --- */
+/* Tab Labels (Sign In / Sign Up) */
 .tab-label {
     -fx-font-size: 14px;
     -fx-font-weight: 600; /* semi-bold */
-    -fx-text-fill: #a493c8; /* --muted-text-color */
+    -fx-text-fill: #a493c8; /* muted-text-color */
     -fx-padding: 10px 0; /* Adjust padding */
     -fx-cursor: hand;
+    -fx-alignment: center; /* Center text in label */
 }
 .tab-label:hover {
-    -fx-text-fill: #ffffff; /* --text-color */
+    -fx-text-fill: #ffffff; /* text-light */
 }
 .tab-label.active-tab {
-    -fx-text-fill: #ffffff; /* --text-color */
-    /* Border controlled by the indicator regions */
+    -fx-text-fill: #ffffff; /* text-light */
+    /* Underline handled by indicator regions below */
 }
 
+/* Tab Indicator Container (holds the lines) */
 .tab-indicator-container {
-    /* The inactive border color */
-    -fx-background-color: #443465; /* --active-border-color (used as the base for inactive line) */
+    -fx-pref-height: 2px; /* Thin container height */
+    -fx-background-color: #443465; /* active-border-color (used as the base inactive line color) */
 }
 
+/* Individual Tab Indicator Lines */
 .tab-indicator {
-    -fx-pref-height: 2px; /* Made thinner */
-    /* Width and position are managed by the HBox alignment and hgrow in FXML,
-       and the controller will set visibility/style */
+    -fx-pref-height: 2px; /* Thin line height */
+    /* Width and visibility managed by controller/FXML HBox hgrow */
 }
 .tab-indicator.primary-indicator {
-    -fx-background-color: #7b47ea; /* --primary-color (Active color) */
+    -fx-background-color: #7b47ea; /* primary-color (Active color) */
 }
 .tab-indicator.secondary-indicator {
-    -fx-background-color: #7b47ea; /* --primary-color (Active color) */
+    -fx-background-color: #7b47ea; /* primary-color (Active color) */
 }
 .tab-indicator.inactive-indicator {
     -fx-background-color: transparent; /* Hide inactive indicator */
 }
 
 
-/* --- Form Container --- */
+/* Form Container (wraps inputs, buttons etc) */
 .form-container {
-    /* Spacing set in FXML */
+    /* Spacing between elements set in FXML */
 }
 
-/* --- Form Inputs (TextField, PasswordField) --- */
+/* Form Inputs (TextField, PasswordField) */
 .form-input {
-    -fx-background-color: #2f2447; /* --input-background-color */
-    -fx-text-fill: #ffffff; /* --text-color */
-    -fx-prompt-text-fill: #a493c8; /* --muted-text-color */
+    -fx-background-color: #2f2447; /* input-background-color */
+    -fx-text-fill: #ffffff; /* text-color */
+    -fx-prompt-text-fill: #a493c8; /* muted-text-color */
     -fx-border-color: #2f2447; /* Same as background normally */
     -fx-border-width: 1px;
     -fx-background-radius: 8px; /* Rounded corners */
     -fx-padding: 10px 15px; /* Adjust padding */
     -fx-font-size: 14px;
-    -fx-pref-height: 40px; /* Set a preferred height for input fields */
+    -fx-pref-height: 40px; /* Consistent input field height */
 }
 .form-input:focused {
-    -fx-border-color: #7b47ea; /* --primary-color */
+    -fx-border-color: #7b47ea; /* primary-color */
     -fx-effect: innershadow(gaussian, rgba(123, 71, 234, 0.2), 5, 0.5, 0, 0); /* Subtle focus effect */
 }
 
-/* --- Forgot Password Link --- */
+/* Forgot Password Link */
 .forgot-password-link {
-    -fx-text-fill: #a493c8; /* --muted-text-color */
+    -fx-text-fill: #a493c8; /* muted-text-color */
     -fx-underline: false;
     -fx-font-size: 12px;
+    -fx-cursor: hand;
 }
 .forgot-password-link:hover {
-    -fx-text-fill: #7b47ea; /* --primary-color */
+    -fx-text-fill: #7b47ea; /* primary-color */
     -fx-underline: false;
 }
 
 
-/* --- Buttons (Primary and Secondary) --- */
-/* Applied to 'Sign In' button and 'Sign Up' button in signup form */
+/* Primary Button (e.g., Sign In, Sign Up) */
 .btn-primary {
-    -fx-background-color: #7b47ea; /* --primary-color */
+    -fx-background-color: #7b47ea; /* primary-color */
     -fx-text-fill: white;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-padding: 12px 20px; /* Adjust padding */
     -fx-background-radius: 8px; /* Rounded corners */
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(123, 71, 234, 0.25), 10, 0.2, 0, 2); /* --shadow-color */
+    -fx-effect: dropshadow(gaussian, rgba(123, 71, 234, 0.25), 10, 0.2, 0, 2); /* shadow-color */
     -fx-pref-width: Infinity; /* Button takes full width of parent */
     -fx-pref-height: 45px; /* Set a consistent height */
     -fx-alignment: center; /* Center text/graphic */
@@ -207,10 +236,10 @@
     -fx-opacity: 1.0;
 }
 
-/* Applied to Social Sign In/Up buttons */
+/* Secondary Button (e.g., Social Sign In/Up) */
 .btn-secondary {
-    -fx-background-color: #2f2447; /* --input-background-color */
-    -fx-text-fill: white; /* --text-color */
+    -fx-background-color: #2f2447; /* input-background-color */
+    -fx-text-fill: white; /* text-color */
     -fx-font-size: 14px;
     -fx-font-weight: 600; /* semi-bold */
     -fx-padding: 12px 20px; /* Adjust padding */
@@ -235,45 +264,20 @@
 }
 
 
-/* --- Separator --- */
-/* Container for the separator line and text */
-.separator-line-container {
-    /* Spacing between line/text handled in FXML */
-}
-.separator-line {
-    -fx-pref-height: 1px; /* Made thinner */
-    -fx-background-color: #443465; /* --active-border-color */
-}
-.separator-text {
-    -fx-font-size: 12px;
-    -fx-text-fill: #a493c8; /* --muted-text-color */
-}
-
-/* --- Error Message Area --- */
-.error-message-area {
-    -fx-background-color: rgba(239, 68, 68, 0.1); /* red-500 / 10% opacity */
-    -fx-background-radius: 5px;
-    -fx-padding: 8px 12px;
-    /* Visibility is controlled by the controller */
-}
-.error-icon {
-    -fx-text-fill: #f87171; /* red-400 */
-}
-.error-message-text {
-    -fx-font-size: 12px;
-    -fx-text-fill: #f87171; /* red-400 */
-    -fx-wrap-text: true; /* Allow text to wrap if it's too long */
-}
-
-
-/* --- Dashboard Specific Styles --- */
+/* --- Dashboard Screen Specific Styles --- */
 
 /* Main Content Area (Dashboard) */
 .main-content {
-    -fx-max-width: 800px; /* Simulate max-width */
-    -fx-pref-width: 100%; /* Allow VBox to take available width within parent */
-    /* Inherits background color from root */
+     -fx-max-width: 800px; /* Simulate max-width */
+     -fx-pref-width: 100%; /* Allow VBox to take available width within parent */
+     /* Inherits background color from root */
+     -fx-padding: 30px 25px; /* Padding inside the main content */
 }
+/* If you implement light mode, add light background here */
+/* .root:not(.dark) .main-content {
+     -fx-background-color: #f8f7fa; // light-background (matches root)
+} */
+
 
 .welcome-title {
     -fx-font-size: 32px; /* Adjust based on mockup */
@@ -281,58 +285,56 @@
     -fx-alignment: center;
 }
 
-/* Action Buttons Container */
+/* Action Buttons Container (Create/Join buttons) */
 .action-buttons {
     -fx-alignment: center;
     -fx-pref-width: 100%; /* HBox fills available width */
+    -fx-spacing: 20px; /* Spacing between buttons */
 }
 
 /* Individual Action Buttons */
-/* .create-meeting-button styles are similar to .btn-primary, but with different padding/size.
-   Kept separate based on your previous code structure. */
 .create-meeting-button {
     -fx-background-color: #7b47ea; /* primary-color */
     -fx-text-fill: white;
-    -fx-font-size: 16px; /* Larger font than login buttons */
+    -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-padding: 15px 30px; /* Larger padding */
-    -fx-background-radius: 10px; /* Slightly more rounded */
+    -fx-padding: 15px 30px; /* Adjust padding */
+    -fx-background-radius: 10px; /* Rounded corners */
     -fx-cursor: hand; /* Indicate clickable */
 }
 .create-meeting-button:hover {
     -fx-background-color: #6a3ab7; /* Darker primary */
 }
 .create-meeting-button:pressed {
-    -fx-background-color: #5a2e9b; /* Even darker */
+     -fx-background-color: #5a2e9b; /* Even darker */
 }
 
 
-/* .join-meeting-button styles */
 .join-meeting-button {
     -fx-background-color: transparent;
     -fx-border-color: #7b47ea; /* primary-color */
     -fx-border-width: 2px;
     -fx-text-fill: #7b47ea; /* primary-color */
-    -fx-font-size: 16px; /* Larger font */
+    -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-padding: 15px 30px; /* Match create button padding */
-    -fx-background-radius: 10px; /* Slightly more rounded */
+    -fx-background-radius: 10px; /* Rounded corners */
     -fx-cursor: hand; /* Indicate clickable */
 }
 .join-meeting-button:hover {
     -fx-background-color: rgba(123, 71, 234, 0.1); /* primary-color with opacity */
 }
 .dark .join-meeting-button:hover {
-    -fx-background-color: rgba(123, 71, 234, 0.2); /* primary-color with more opacity */
+     -fx-background-color: rgba(123, 71, 234, 0.2); /* primary-color with more opacity */
 }
 
 
 /* Upcoming Meetings Section */
 .upcoming-meetings-section {
-    -fx-pref-width: 100%;
+     -fx-pref-width: 100%;
 }
 .section-title {
-    -fx-font-size: 20px; /* Used also for Signup form title */
+    -fx-font-size: 20px;
     -fx-font-weight: bold;
     /* Padding added in FXML VBox padding */
 }
@@ -343,10 +345,10 @@
 
 /* Individual Meeting Item (if using separate FXML, apply these styles to its root) */
 .meeting-item {
-    -fx-background-color: #ffffff; /* White background in light theme */
+    -fx-background-color: #ffffff; /* White background */
     -fx-padding: 15px;
     -fx-background-radius: 8px; /* Rounded corners */
-    -fx-border-color: #e5e7eb; /* Border color light */
+    -fx-border-color: #e5e7eb; /* Border color */
     -fx-border-width: 1px;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 0, 2); /* Subtle shadow */
     -fx-cursor: pointer; /* Indicate clickable */
@@ -354,49 +356,46 @@
 .dark .meeting-item {
     -fx-background-color: rgba(47, 36, 71, 0.5); /* secondary-color/50 */
     -fx-border-color: #2f2447; /* border-color-dark */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 0, 2); /* Subtle shadow */
+     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 0, 2); /* Subtle shadow */
 }
 .meeting-item:hover {
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 8, 0, 0, 3); /* Larger shadow on hover */
 }
 
-/* Style for the VBox containing the calendar icon */
 .meeting-icon {
-    -fx-background-color: rgba(123, 71, 234, 0.1); /* primary-color/10 */
-    -fx-background-radius: 8px;
-    -fx-min-width: 50px; /* Fixed size */
-    -fx-min-height: 50px;
-    -fx-alignment: center; /* Center the icon/text inside */
+     /* Style for the calendar icon */
+     -fx-background-color: rgba(123, 71, 234, 0.1); /* primary-color/10 */
+     -fx-background-radius: 8px;
+     -fx-min-width: 50px; /* Fixed size */
+     -fx-min-height: 50px;
+     -fx-alignment: center; /* Center the icon/text */
+     -fx-text-fill: #7b47ea; /* primary-color */
+     -fx-font-size: 24px; /* Icon size */
 }
 .dark .meeting-icon {
     -fx-background-color: rgba(123, 71, 234, 0.2); /* primary-color/20 */
 }
-/* Style for the text/icon *inside* the meeting-icon VBox */
-.meeting-icon Label {
-    -fx-text-fill: #7b47ea; /* primary-color */
-    -fx-font-size: 24px; /* Icon size */
-}
-
 
 .meeting-title {
-    -fx-font-size: 15px; /* Adjust */
-    -fx-font-weight: 500; /* medium */
+     -fx-font-size: 15px; /* Adjust */
+     -fx-font-weight: 500; /* Changed from 'medium' to numeric value */
 }
 
 .meeting-time {
-    -fx-font-size: 13px; /* Adjust */
-    -fx-text-fill: #a493c8; /* text-muted-light */
+     -fx-font-size: 13px; /* Adjust */
+     -fx-text-fill: #6b7280; /* text-muted-dark */
 }
 .dark .meeting-time {
-    -fx-text-fill: #a493c8; /* text-muted-light */
+     -fx-text-fill: #a493c8; /* text-muted-light */
 }
 
 
+/* Join Upcoming Meeting Button */
 .join-upcoming-button {
     -fx-background-color: #7b47ea; /* primary-color */
     -fx-text-fill: white;
     -fx-font-size: 13px; /* Smaller font */
-    -fx-font-weight: 500; /* medium */
+    -fx-font-weight: 500; /* Changed from 'medium' to numeric value */
     -fx-padding: 8px 15px; /* Adjust padding */
     -fx-background-radius: 6px; /* Rounded corners */
     -fx-cursor: hand;
@@ -404,6 +403,71 @@
 .join-upcoming-button:hover {
     -fx-background-color: #6a3ab7; /* Darker primary */
 }
-.join-upcoming-button:pressed {
-    -fx-background-color: #5a2e9b; /* Even darker */
+
+/* --- Splash Screen Specific Styles --- */
+
+/* Root background gradient for Splash */
+.splash-root {
+    /* Replicating the linear-gradient from HTML */
+    -fx-background-color: linear-gradient(to bottom right, #1e152a 0%, #2a203f 50%, #7b47ea 100%);
+    /* Fallback color if gradient doesn't work */
+    -fx-background: #1e152a;
+}
+
+/* Icon Container (for the circular background around the icon) */
+.splash-icon-container {
+    -fx-background-color: #1f1630; /* card-background-color (used as background for icon circle) */
+    -fx-background-radius: 50%; /* Make it round */
+    -fx-padding: 15px; /* Add space around the icon */
+    /* Adding a border/ring effect */
+    -fx-border-color: #a881ff; /* accent-color */
+    -fx-border-width: 2px; /* Adjust width */
+    -fx-border-radius: 50%;
+    -fx-effect: dropshadow(gaussian, rgba(168, 129, 255, 0.3), 10, 0.5, 0, 0); /* Add a subtle glow */
+}
+
+/* Title Label on Splash Screen */
+.splash-title {
+    -fx-font-size: 36px; /* Adjust size */
+    -fx-font-weight: bold;
+    -fx-text-fill: #f0e7ff; /* text-color from splash HTML */
+    -fx-padding: 0 0 10px 0; /* Add space below the title */
+}
+
+/* Loading Section Container on Splash */
+.splash-loading-container {
+    /* Spacing set in FXML */
+    -fx-max-width: 250px; /* Match progress bar width */
+    -fx-pref-width: 100%;
+}
+
+/* Progress Bar on Splash Screen */
+.splash-progress-bar {
+    -fx-box-border: transparent; /* Remove default border */
+    -fx-indeterminate-bar-length: 0.4; /* Adjust length of the moving bar */
+
+    /* Styling the track */
+    -fx-background-color: #443465; /* Background track color (active-border-color) */
+    -fx-background-radius: 5px; /* Rounded corners for the track */
+    -fx-border-radius: 5px;
+    -fx-pref-height: 5px; /* Set height */
+    -fx-max-height: 5px;
+
+    /* The moving bar ('-fx-accent') */
+    -fx-accent: #a881ff; /* Color of the moving bar (accent-color) */
+}
+/* Customizing the moving bar itself within the progress bar */
+.splash-progress-bar .bar {
+    -fx-background-color: #a881ff; /* accent-color */
+    -fx-background-radius: 5px; /* Rounded corners for the moving bar */
+    -fx-border-radius: 5px;
+}
+
+
+/* Loading Message Label on Splash Screen */
+.splash-message {
+    -fx-font-size: 12px;
+    -fx-font-weight: 500; /* medium */
+    -fx-text-fill: #a881ff; /* accent-color */
+    -fx-letter-spacing: 0.5px; /* Simulate tracking-wide */
 }

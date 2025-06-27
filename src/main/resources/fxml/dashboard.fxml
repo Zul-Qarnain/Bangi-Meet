@@ -12,7 +12,7 @@
       xmlns="http://javafx.com/javafx"
       fx:controller="com.meetingapp.controllers.DashboardController"
       spacing="20.0"
-      styleClass="dashboard-layout"> <!-- Add a style class for the root -->
+      styleClass="root"> <!-- Use light theme for dashboard (remove 'dark' class) -->
 
     <padding>
         <Insets top="0" right="0" bottom="0" left="0"/> <!-- Padding will be added to content sections -->

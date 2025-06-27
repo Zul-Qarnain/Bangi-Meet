@@ -46,18 +46,18 @@
                     </image>
                 </ImageView>
                 <!-- Dropdown indicator (can be a Label with text "▼" or an icon) -->
-                <Label text="▼" styleClass="dropdown-arrow"/>
-                <!-- ContextMenu for the dropdown -->
-                <contextmenu>
-                    <ContextMenu>
-                        <items>
-                            <MenuItem text="Profile" onAction="#handleProfile"/>
-                            <MenuItem text="Settings" onAction="#handleSettings"/>
-                            <SeparatorMenuItem/>
-                            <MenuItem text="Logout" onAction="#handleLogout"/>
-                        </items>
-                    </ContextMenu>
-                </contextmenu>
+                <Label text="▼" styleClass="dropdown-arrow">
+                    <contextMenu>
+                        <ContextMenu>
+                            <items>
+                                <MenuItem text="Profile" onAction="#handleProfile"/>
+                                <MenuItem text="Settings" onAction="#handleSettings"/>
+                                <SeparatorMenuItem/>
+                                <MenuItem text="Logout" onAction="#handleLogout"/>
+                            </items>
+                        </ContextMenu>
+                    </contextMenu>
+                </Label>
             </HBox>
         </HBox>
     </HBox>

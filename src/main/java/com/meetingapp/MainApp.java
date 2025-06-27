@@ -5,53 +5,83 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import com.meetingapp.controllers.DashboardController;
+import com.meetingapp.controllers.LoginController; // Import LoginController
+import com.meetingapp.models.User;
 
-import com.meetingapp.controllers.DashboardController; // Import the controller
+import java.io.IOException; // Import for catching IOException
 
 public class MainApp extends Application {
 
-    private Stage primaryStage; // Keep a reference to the primary stage
+    private Stage primaryStage;
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) { // Use throws IOException or catch it
         this.primaryStage = primaryStage;
-        primaryStage.setTitle("Connect Meeting App"); // Initial title
+        primaryStage.setTitle("Connect Meeting App");
 
-        // --- TEMPORARY: Load Dashboard directly for testing ---
-        showDashboardScreen(null); // Pass null user for now
-
-        // --- In a real app, you'd load splash or login first ---
-        // showSplashScreen();
-        // showLoginScreen();
+        // Start with the Login screen
+        showLoginScreen();
     }
 
-    public void showDashboardScreen(com.meetingapp.models.User loggedInUser) {
+    /**
+     * Loads and displays the Login screen.
+     */
+    public void showLoginScreen() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/dashboard.fxml"));
-            Parent dashboardRoot = loader.load();
+            // Fixed resource loading using class loader
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/login.fxml"));
+            Parent loginRoot = loader.load();
 
-            DashboardController controller = loader.getController();
-            // Pass the logged-in user data (replace with actual user later)
-            controller.setCurrentUser(loggedInUser);
-            // If using MeetingItemController, you might need to pass the DashboardController instance to it here
-            // controller.setDashboardController(this); // Example if DashboardController needs MainApp ref
+            LoginController controller = loader.getController();
+            controller.setMainApp(this); // Pass reference to MainApp
 
-            Scene dashboardScene = new Scene(dashboardRoot, 800, 600); // Set your desired window size
-            // Link the CSS file
-            dashboardScene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+            Scene loginScene = new Scene(loginRoot, 800, 600); // Set initial window size
+            // Fixed CSS loading path
+            loginScene.getStylesheets().add(MainApp.class.getResource("/css/style.css").toExternalForm());
 
-            // Set the scene on the primary stage
-            primaryStage.setScene(dashboardScene);
-            primaryStage.setTitle("Connect - Dashboard"); // Update title
+            primaryStage.setScene(loginScene);
+            primaryStage.setTitle("Connect - Sign In"); // Update window title
             primaryStage.show();
 
-        } catch (Exception e) { // Use Exception for broader catch during development
+        } catch (IOException e) { // Catch IOException specifically
+            System.err.println("Error loading login screen: ");
             e.printStackTrace();
-            // TODO: Show a user-friendly error message or log the error
+            // Handle the error, e.g., show an error dialog and exit
         }
     }
 
-    // You would add methods for showing other screens (splash, login, meeting) here
+
+    /**
+     * Loads and displays the Dashboard screen.
+     * @param loggedInUser The user who successfully logged in.
+     */
+    public void showDashboardScreen(User loggedInUser) {
+        try {
+            // Fixed resource loading using class loader
+            FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/dashboard.fxml"));
+            Parent dashboardRoot = loader.load();
+
+            DashboardController controller = loader.getController();
+            controller.setCurrentUser(loggedInUser); // Pass the logged-in user
+
+            Scene dashboardScene = new Scene(dashboardRoot, 1000, 800); // Adjust size for dashboard
+            // Fixed CSS loading path
+            dashboardScene.getStylesheets().add(MainApp.class.getResource("/css/style.css").toExternalForm());
+
+            primaryStage.setScene(dashboardScene);
+            primaryStage.setTitle("Connect - Dashboard"); // Update window title
+            primaryStage.show();
+
+        } catch (IOException e) { // Catch IOException specifically
+            System.err.println("Error loading dashboard screen: ");
+            e.printStackTrace();
+            // Handle the error
+        }
+    }
+
+    // TODO: Add methods to show other screens (e.g., Meeting, Settings)
+
 
     public static void main(String[] args) {
         launch(args);

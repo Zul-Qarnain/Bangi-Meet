@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="javafx">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/lib/javafx-sdk-24.0.1/src/javafx.base" />
+      <root url="file://$PROJECT_DIR$/lib/javafx-sdk-24.0.1/src/javafx.controls" />
+      <root url="file://$PROJECT_DIR$/lib/javafx-sdk-24.0.1/src/javafx.fxml" />
+      <root url="file://$PROJECT_DIR$/lib/javafx-sdk-24.0.1/src/javafx.graphics" />
+      <root url="file://$PROJECT_DIR$/lib/javafx-sdk-24.0.1/src/javafx.media" />
+      <root url="file://$PROJECT_DIR$/lib/javafx-sdk-24.0.1/src/javafx.swing" />
+      <root url="file://$PROJECT_DIR$/lib/javafx-sdk-24.0.1/src/javafx.web" />
+      <root url="file://$PROJECT_DIR$/lib/javafx-sdk-24.0.1/src/jdk.jsobject" />
+      <root url="file://$PROJECT_DIR$/lib/javafx-sdk-24.0.1/src/jfx.incubator.input" />
+      <root url="file://$PROJECT_DIR$/lib/javafx-sdk-24.0.1/src/jfx.incubator.richtext" />
+    </SOURCES>
+  </library>
+</component>

@@ -99,14 +99,10 @@ public class LoginController implements Initializable {
             hideErrorMessage();
             System.out.println("Sign In successful!");
             // TODO: Fetch user data
-            User loggedInUser = new User(email); // Dummy user
-            // Navigate to the Dashboard screen
-            if (mainApp != null) {
-                mainApp.showDashboardScreen(loggedInUser); // Assuming MainApp has this method
-            }
+            User user = new User(email, email, "Dummy Name"); // Create a dummy user
+            mainApp.showDashboardScreen(user);
         } else {
-            showErrorMessage("Invalid email or password. Please try again.");
-            System.out.println("Sign In failed.");
+            showErrorMessage("Invalid email or password.");
         }
     }
 
@@ -118,14 +114,29 @@ public class LoginController implements Initializable {
 
     @FXML
     private void handleGoogleSignIn() {
+        // TODO: Implement Google Sign-In logic
         System.out.println("Sign in with Google button clicked");
-        // TODO: Implement Google Sign-In flow (requires external libraries/API calls)
     }
 
     @FXML
     private void handleMicrosoftSignIn() {
         System.out.println("Sign in with Microsoft button clicked");
         // TODO: Implement Microsoft Sign-In flow (requires external libraries/API calls)
+    }
+
+    @FXML
+    private void handleGoogleSignUp() {
+        System.out.println("Google Sign Up button clicked");
+    }
+
+    @FXML
+    private void handleMicrosoftSignUp() {
+        System.out.println("Microsoft Sign Up button clicked");
+    }
+
+    @FXML
+    private void handleSignUp() {
+        System.out.println("Sign Up button clicked");
     }
 
     @FXML
@@ -155,6 +166,26 @@ public class LoginController implements Initializable {
         signInFormPane.setManaged(false);
         signUpFormPane.setVisible(true);
         signUpFormPane.setManaged(true);
+    }
+
+    @FXML
+    private void handleNavDashboard() {
+        System.out.println("handleNavDashboard called");
+    }
+
+    @FXML
+    private void handleNavPricing() {
+        System.out.println("handleNavPricing called");
+    }
+
+    @FXML
+    private void handleNavSupport() {
+        System.out.println("handleNavSupport called");
+    }
+
+    @FXML
+    private void handleHeaderSignInButton() {
+        System.out.println("handleHeaderSignInButton called");
     }
 
 

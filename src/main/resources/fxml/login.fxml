@@ -10,42 +10,43 @@
 <?import javafx.scene.Node?>
 
 <!-- Use a StackPane to center the content vertically and horizontally -->
+<!-- Add the 'dark' style class to the root to enable dark theme CSS -->
 <StackPane xmlns:fx="http://javafx.com/fxml/1"
            xmlns="http://javafx.com/javafx"
            fx:controller="com.meetingapp.controllers.LoginController"
-           styleClass="root"> <!-- Apply root styling from CSS -->
+           styleClass="root, dark"> <!-- Apply root and dark styling from CSS -->
 
     <VBox alignment="TOP_CENTER" spacing="0" prefHeight="-1.0" prefWidth="-1.0" styleClass="login-layout">
 
-        <!-- Header -->
+        <!-- Header - Updated to match reference image structure -->
         <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="header-bar">
             <padding>
                 <Insets top="15" right="25" bottom="15" left="25"/>
             </padding>
             <ImageView fitHeight="30" fitWidth="30" preserveRatio="true">
                 <image>
-                    <!-- Replace with your actual logo path -->
+                    <!-- Path to your logo file -->
                     <Image url="@../images/logo.png"/>
                 </image>
             </ImageView>
-            <Label text="Connect" styleClass="app-title" HBox.hgrow="ALWAYS"/>
+            <Label text="Connect" styleClass="app-title"/>
 
-            <!-- Right side of Header (Placeholder for navigation/signup link if needed) -->
-            <HBox alignment="CENTER_RIGHT" spacing="15.0">
-                <!-- You can add navigation links here if your design needs them -->
-                <!--
-                <Hyperlink text="Download" styleClass="header-link"/>
-                <Hyperlink text="Pricing" styleClass="header-link"/>
-                <Hyperlink text="Support" styleClass="header-link"/>
-                -->
-                <!-- The mockup header has a 'Sign in' button, but this is the Sign In page.
-                     Maybe this button is for 'Sign Up' or removed entirely for this view.
-                     Let's add a placeholder for 'Sign Up' as a link. -->
-                <Hyperlink text="Sign Up" styleClass="header-link" onAction="#handleHeaderSignUpLink"/>
+            <!-- Spacer to push navigation/buttons to the right -->
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <!-- Navigation Links -->
+            <HBox alignment="CENTER_RIGHT" spacing="20.0" styleClass="header-nav">
+                <!-- Using Hyperlinks for simplicity, can be Buttons -->
+                <Hyperlink text="Dashboard" styleClass="header-link" onAction="#handleNavDashboard"/>
+                <Hyperlink text="Pricing" styleClass="header-link" onAction="#handleNavPricing"/>
+                <Hyperlink text="Support" styleClass="header-link" onAction="#handleNavSupport"/>
+                <!-- The 'Sign In' button on the header. Could be 'Sign Up' if on Sign Up tab -->
+                <Button text="Sign in" styleClass="header-sign-in-button" onAction="#handleHeaderSignInButton"/>
             </HBox>
         </HBox>
 
         <!-- Main Content Area - The Centered Card will be here -->
+        <!-- Style class added to ensure background color matches root in dark mode -->
         <StackPane alignment="CENTER" VBox.vgrow="ALWAYS" styleClass="main-content-login">
             <padding>
                 <Insets top="30" right="15" bottom="30" left="15"/> <!-- Add some horizontal padding -->
@@ -59,30 +60,31 @@
 
                 <!-- Sign In / Sign Up Tabs -->
                 <VBox spacing="0">
-                    <HBox alignment="CENTER" spacing="0">
+                    <!-- Increased spacing in the HBox -->
+                    <HBox alignment="CENTER" spacing="40.0"> <!-- Increased spacing -->
                         <!-- Sign In Tab -->
-                        <!-- Using Label as tab header for simpler FXML, controller will handle click -->
                         <Label text="Sign In" fx:id="signInTabLabel" styleClass="tab-label" onMouseClicked="#handleSignInTabClick" alignment="CENTER" HBox.hgrow="ALWAYS"/>
                         <!-- Sign Up Tab -->
                         <Label text="Sign Up" fx:id="signUpTabLabel" styleClass="tab-label" onMouseClicked="#handleSignUpTabClick" alignment="CENTER" HBox.hgrow="ALWAYS"/>
                     </HBox>
-                    <!-- Tab Indicator -->
+                    <!-- Tab Indicator - Container -->
                     <HBox alignment="CENTER_LEFT" prefHeight="3.0" styleClass="tab-indicator-container">
-                        <!-- We will control the position and width of this region via CSS/Controller -->
-                        <!-- For simplicity in FXML, let's use two Regions for the indicator -->
-                        <Region fx:id="signInIndicator" prefHeight="3.0" styleClass="tab-indicator primary-indicator" HBox.hgrow="ALWAYS"/>
-                        <Region fx:id="signUpIndicator" prefHeight="3.0" styleClass="tab-indicator secondary-indicator" HBox.hgrow="ALWAYS"/>
+                        <!-- These Regions are styled/managed by the controller -->
+                        <!-- Pref height is set in CSS for thinner line -->
+                        <Region fx:id="signInIndicator" styleClass="tab-indicator primary-indicator" HBox.hgrow="ALWAYS"/>
+                        <Region fx:id="signUpIndicator" styleClass="tab-indicator secondary-indicator" HBox.hgrow="ALWAYS"/>
                     </HBox>
                 </VBox>
 
 
                 <!-- Form Container - We'll switch content here -->
-                <!-- For simplicity, let's just show the Sign In form initially -->
-                <VBox fx:id="signInFormPane" spacing="20.0" styleClass="form-container">
+                <!-- Sign In Form (Initially visible) -->
+                <!-- Moved social buttons directly into this VBox for easier alignment -->
+                <VBox fx:id="signInFormPane" spacing="15.0" styleClass="form-container"> <!-- Adjusted spacing -->
                     <!-- Email Field -->
-                    <TextField fx:id="emailField" promptText="Email address" styleClass="form-input"/>
+                    <TextField fx:id="emailField" promptText="Email address" styleClass="form-input" maxWidth="Infinity"/> <!-- Ensure it expands -->
                     <!-- Password Field -->
-                    <PasswordField fx:id="passwordField" promptText="Password" styleClass="form-input"/>
+                    <PasswordField fx:id="passwordField" promptText="Password" styleClass="form-input" maxWidth="Infinity"/> <!-- Ensure it expands -->
 
                     <!-- Forgot Password Link -->
                     <HBox alignment="CENTER_RIGHT">
@@ -90,53 +92,84 @@
                     </HBox>
 
                     <!-- Sign In Button -->
-                    <Button fx:id="signInButton" text="Sign In" styleClass="btn-primary" onAction="#handleSignIn"/>
+                    <!-- Added maxWidth="Infinity" to make it take available width -->
+                    <Button fx:id="signInButton" text="Sign In" styleClass="btn-primary" onAction="#handleSignIn" maxWidth="Infinity"/>
 
                     <!-- Or continue with Separator -->
-                    <HBox alignment="CENTER" spacing="10">
+                    <!-- Pref height is set in CSS for thinner line -->
+                    <HBox alignment="CENTER" spacing="10" styleClass="separator-line-container">
                         <Region styleClass="separator-line" HBox.hgrow="ALWAYS"/>
                         <Label text="or continue with" styleClass="separator-text"/>
                         <Region styleClass="separator-line" HBox.hgrow="ALWAYS"/>
                     </HBox>
 
-                    <!-- Social Sign In Buttons -->
-                    <VBox spacing="15">
-                        <Button fx:id="googleSignInButton" text="Sign in with Google" styleClass="btn-secondary" onAction="#handleGoogleSignIn" >
-                            <graphic>
-                                <!-- Replace with your Google icon path -->
-                                <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../images/google.png"/>
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                        </Button>
-                        <Button fx:id="microsoftSignInButton" text="Sign in with Microsoft" styleClass="btn-secondary" onAction="#handleMicrosoftSignIn">
-                            <graphic>
-                                <!-- Replace with your Microsoft icon path -->
-                                <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../images/microsoft.png"/>
-                                    </image>
-                                </ImageView>
-                            </graphic>
-                        </Button>
-                    </VBox>
+                    <!-- Social Sign In Buttons - Now directly in signInFormPane -->
+                    <!-- Added maxWidth="Infinity" and styleClass="btn-secondary" -->
+                    <Button fx:id="googleSignInButton" text="Sign in with Google" styleClass="btn-secondary" onAction="#handleGoogleSignIn" maxWidth="Infinity">
+                        <graphic>
+                            <!-- Path to your Google icon (PNG with transparency) -->
+                            <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
+                                <image>
+                                    <Image url="@../images/google.png"/>
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button fx:id="microsoftSignInButton" text="Sign in with Microsoft" styleClass="btn-secondary" onAction="#handleMicrosoftSignIn" maxWidth="Infinity">
+                        <graphic>
+                            <!-- Path to your Microsoft icon (PNG with transparency) -->
+                            <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
+                                <image>
+                                    <Image url="@../images/microsoft.png"/>
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
                 </VBox>
 
-                <!-- Placeholder for the Sign Up Form - Initially hidden -->
-                <!-- You would structure this similarly to the Sign In form -->
-                <VBox fx:id="signUpFormPane" spacing="20.0" styleClass="form-container" visible="false" managed="false">
-                    <Label text="Sign Up Form Goes Here" styleClass="separator-text"/>
-                    <!-- Add Name, Email, Password, Confirm Password fields, Sign Up button etc. -->
+                <!-- Sign Up Form - Initially hidden -->
+                <!-- Added maxWidth="Infinity" to form elements -->
+                <VBox fx:id="signUpFormPane" spacing="15.0" styleClass="form-container" visible="false" managed="false">
+                    <!-- Add Sign Up form elements here -->
+                    <Label text="Sign Up Form Goes Here" styleClass="section-title"/> <!-- Re-using section-title class for a larger heading -->
+                    <TextField promptText="Full Name" styleClass="form-input" maxWidth="Infinity"/>
+                    <TextField promptText="Email address" styleClass="form-input" maxWidth="Infinity"/>
+                    <PasswordField promptText="Password" styleClass="form-input" maxWidth="Infinity"/>
+                    <PasswordField promptText="Confirm Password" styleClass="form-input" maxWidth="Infinity"/>
+                    <Button text="Sign Up" styleClass="btn-primary" onAction="#handleSignUp" maxWidth="Infinity"/>
+
+                    <!-- You can add social sign-up buttons too if desired -->
+                    <HBox alignment="CENTER" spacing="10" styleClass="separator-line-container">
+                        <Region styleClass="separator-line" HBox.hgrow="ALWAYS"/>
+                        <Label text="or continue with" styleClass="separator-text"/>
+                        <Region styleClass="separator-line" HBox.hgrow="ALWAYS"/>
+                    </HBox>
+                    <Button text="Sign up with Google" styleClass="btn-secondary" onAction="#handleGoogleSignUp" maxWidth="Infinity">
+                        <graphic>
+                            <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
+                                <image>
+                                    <Image url="@../images/google.png"/>
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <Button text="Sign up with Microsoft" styleClass="btn-secondary" onAction="#handleMicrosoftSignUp" maxWidth="Infinity">
+                        <graphic>
+                            <ImageView fitHeight="20" fitWidth="20" preserveRatio="true">
+                                <image>
+                                    <Image url="@../images/microsoft.png"/>
+                                </image>
+                            </ImageView>
+                        </graphic>
+                    </Button>
                 </VBox>
 
 
                 <!-- Error Message Area -->
                 <HBox fx:id="errorMessageArea" alignment="CENTER_LEFT" spacing="5" styleClass="error-message-area" visible="false" managed="false">
-                    <!-- Example icon -->
+                    <!-- Example icon (can replace with ImageView if using an image) -->
                     <Label text="⚠️" styleClass="error-icon"/>
-                    <Label fx:id="errorMessageLabel" text="Invalid email or password. Please try again." styleClass="error-message-text"/>
+                    <Label fx:id="errorMessageLabel" text="Invalid email or password. Please try again." styleClass="error-message-text" HBox.hgrow="ALWAYS"/>
                 </HBox>
 
             </VBox>
